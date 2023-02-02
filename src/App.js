@@ -1,21 +1,19 @@
 import logo from "./logo.svg";
 import "./App.css";
+import React from "react";
+import { useAuth } from './context/auth-context'
 
-import { GoogleLogin } from "@react-oauth/google";
+const AuthenticatedApp = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './authenticated-app'),
+)
+const UnauthenticatedApp = React.lazy(() => import('./unauthenticated-app'))
 
 function App() {
+  const { user } = useAuth();
   return (
-    <div>
-      <h1>hello</h1>
-      <GoogleLogin
-        onSuccess={(credentialResponse) => {
-          console.log(credentialResponse);
-        }}
-        onError={() => {
-          console.log("Login Failed");
-        }}
-      />
-    </div>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </React.Suspense>
   );
 }
 
