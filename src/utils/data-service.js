@@ -6,6 +6,8 @@ const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 const getTeamData = (endpoint) => axios.get(`${API_BASE_URL}/${endpoint}`).then(res => res.data)
 
+const getTeamDepthData = (endpoint, data) => axios.post(`${API_BASE_URL}/${endpoint}`, data)
+
 const getDatas = (endpoint) => axios.get(`${API_BASE_URL}/${endpoint}`).then(res => res.data);
 
 const createData = (endpoint, data) => axios.post(`${API_BASE_URL}/${endpoint}`, data);
@@ -16,4 +18,4 @@ const updateData = (endpoint, data, dataId) => axios.put(`${API_BASE_URL}/${endp
 
 const deleteData = (endpoint, dataId) => axios.delete(`${API_BASE_URL}/${endpoint}/${dataId}`);
 
-export { getTeamData, getDatas, createData, getDataById, updateData, deleteData }
+export { getTeamData, getTeamDepthData, getDatas, createData, getDataById, updateData, deleteData }

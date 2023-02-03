@@ -38,7 +38,6 @@ const darkTheme = createTheme({
 });
 
 function ResponsiveAppBar({ roll, userData }) {
-    console.log(userData);
    const { logout } = useAuth();
    const [anchorElNav, setAnchorElNav] = React.useState(null);
    const [anchorElUser, setAnchorElUser] = React.useState(null);

@@ -1,27 +1,36 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import * as colors from 'styles/colors'
-import Slide from '@mui/material/Slide';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Box from '@mui/material/Box';
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
+import * as colors from "styles/colors";
+import Slide from "@mui/material/Slide";
+import TeamDepth from "./team-depth";
+import PlayerDepth from "./team-player-depth";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function TeamDetails({ isOpen, handleModalClose, teamName }) {
-    console.log(teamName);
+const navItems = ['Team Details', 'Player Details']
+
+function TeamDetails({ isOpen, handleModalClose, teamData }) {
+    const [page, setPage] = React.useState(navItems[0])
     const handleClose = () => {
         handleModalClose();
     };
+
+    const handleOptionSelect = (item) =>{
+        setPage(item)
+    }
 
     return (
         <div>
@@ -34,7 +43,7 @@ function TeamDetails({ isOpen, handleModalClose, teamName }) {
                 onClose={handleClose}
                 TransitionComponent={Transition}
             >
-                <AppBar sx={{ position: 'relative', backgroundColor: 'black' }}>
+                <AppBar sx={{ position: "relative", backgroundColor: "black" }}>
                     <Toolbar>
                         <IconButton
                             edge="start"
@@ -45,26 +54,21 @@ function TeamDetails({ isOpen, handleModalClose, teamName }) {
                             <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            {teamName.name}
+                            {teamData.name}
                         </Typography>
+                        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+                            {navItems.map((item) => (
+                                <Button onClick={() => handleOptionSelect(item)} key={item} sx={{ color: "#fff" }}>
+                                    {item}
+                                </Button>
+                            ))}
+                        </Box>
                     </Toolbar>
                 </AppBar>
-                <List>
-                    <ListItem button>
-                        <ListItemText primary="Phone ringtone" secondary="Titania" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button>
-                        <ListItemText
-                            primary="Default notification ringtone"
-                            secondary="Tethys"
-                        />
-                    </ListItem>
-                </List>
+                {page === 'Team Details' ? <TeamDepth team={teamData} /> : <PlayerDepth/>}
             </Dialog>
         </div>
     );
 }
 
-
-export default TeamDetails
+export default TeamDetails;

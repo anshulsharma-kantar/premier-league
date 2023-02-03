@@ -14,12 +14,12 @@ import { getTeamData } from 'utils/data-service';
 const columns = [
     { id: 'position', lable: 'Position', minWidth: 100},
     { id: 'name', label: 'Name', minWidth: 100 },
-    { id: 'draw', label: 'Win', minWidth: 100 }, //change to wins
+    { id: 'win', label: 'Win', minWidth: 100 }, //change to wins
     { id: 'draw', label: 'Draw', minWidth: 100 },
     { id: 'loss', label: 'Loss', minWidth: 100 },
     { id: 'goals_scored', label: 'GF', minWidth: 100 },
     { id: 'goals_conceded', label: 'GA', minWidth: 100 },
-    { id: 'position', label: 'Points', minWidth: 100 } //change to points
+    { id: 'points', label: 'Points', minWidth: 100 } //change to points
 ];
 
 
@@ -107,7 +107,7 @@ function Teampage() {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
-            <TeamDetails isOpen={showDetails} handleModalClose={handelClose} teamName={selectedRow}></TeamDetails>
+            <TeamDetails isOpen={showDetails} handleModalClose={handelClose} teamData={selectedRow}></TeamDetails>
         </>
 
     );
