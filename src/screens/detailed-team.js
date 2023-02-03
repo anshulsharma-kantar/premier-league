@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function TeamDetails({ isOpen, handleModalClose, teamName }) {
-
+    console.log(teamName);
     const handleClose = () => {
         handleModalClose();
     };
@@ -45,7 +45,7 @@ function TeamDetails({ isOpen, handleModalClose, teamName }) {
                             <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            Sound
+                            {teamName.name}
                         </Typography>
                     </Toolbar>
                 </AppBar>
