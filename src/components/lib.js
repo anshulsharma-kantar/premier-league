@@ -1,7 +1,8 @@
 import * as colors from '../styles/colors';
 import { Link as RouterLink } from 'react-router-dom';
-import { alpha, styled as muiStyled } from '@mui/material/styles';
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+import { FaSpinner } from 'react-icons/fa';
 
 
 const errorMessageVariants = {
@@ -16,6 +17,12 @@ const Link = styled(RouterLink)({
         textDecoration: 'underline',
     },
 })
+
+const spin = keyframes({ '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' }, }) 
+
+const Spinner = styled(FaSpinner)({ animation: `${spin} 1s linear infinite`, })
+
+Spinner.defaultProps = { 'aria-label': 'loading', }
 
 function ErrorMessage({ error, variant = 'stacked', ...props }) {
     return (
@@ -59,5 +66,6 @@ function FullPageErrorFallback({ error }) {
 export {
     FullPageErrorFallback,
     ErrorMessage,
-    Link
+    Link,
+    Spinner
 }

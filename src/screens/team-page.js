@@ -12,7 +12,7 @@ import TeamDetails from './detailed-team';
 import { getTeamData } from 'utils/data-service';
 
 const columns = [
-    { id: 'position', lable: 'Position', minWidth: 100},
+    { id: 'position', lable: 'Position', minWidth: 100 },
     { id: 'name', label: 'Name', minWidth: 100 },
     { id: 'win', label: 'Win', minWidth: 100 }, //change to wins
     { id: 'draw', label: 'Draw', minWidth: 100 },
@@ -29,12 +29,12 @@ function Teampage() {
     const [showDetails, setShowDetails] = React.useState(false);
     const [selectedRow, setSelectedRow] = React.useState({})
     const [rows, setRows] = React.useState([])
-    const {data, error, isLoading} = useSWR('teams', getTeamData)
-    if(data){
-        data.sort((a,b) => {return a.position - b.position})
+    const { data, error, isLoading } = useSWR('teams', getTeamData)
+    if (data) {
+        data.sort((a, b) => { return a.position - b.position })
     }
 
-    React.useEffect(() =>{
+    React.useEffect(() => {
         setRows(data)
     }, [data])
 
@@ -52,9 +52,9 @@ function Teampage() {
         setSelectedRow(row)
     }
 
-    const handelClose = () =>{
+    const handelClose = () => {
         setShowDetails(false)
-        console.log('in handle modal close ',showDetails);
+        console.log('in handle modal close ', showDetails);
     }
 
     return (
@@ -80,7 +80,7 @@ function Teampage() {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
                                     return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} onClick={() => handleClick(row)} key={row.code}>
+                                        <TableRow hover role="checkbox" tabIndex={-1} onClick={() => handleClick(row)} key={row.id}>
                                             {columns.map((column) => {
                                                 const value = row[column.id];
                                                 return (
