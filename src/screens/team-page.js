@@ -9,6 +9,8 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TeamDetails from './detailed-team';
+import { Spinner } from 'components/lib';
+import * as colors from 'styles/colors';
 import { getTeamData } from 'utils/data-service';
 
 const columns = [
@@ -37,6 +39,15 @@ function Teampage() {
     React.useEffect(() => {
         setRows(data)
     }, [data])
+
+    if (isLoading) return (<Spinner />)
+
+    if (error) return (
+        <div css={{ color: colors.danger }}>
+            <p>There was an error:</p>
+            <pre>{error.message}</pre>
+        </div>
+    )
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

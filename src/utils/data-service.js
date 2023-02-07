@@ -8,8 +8,10 @@ const getTeamData = (endpoint) => axios.get(`${API_BASE_URL}/${endpoint}`).then(
 
 const getTeamDepthData = (endpoint, data) => axios.get(`${API_BASE_URL}/${endpoint}`)
 
+const getPlayerDepthData = (endpoint, data) => axios.get(`${API_BASE_URL}/${endpoint}`).then(res => res.data)
+
 const getPlayers = (endpoint) => axios.get(`${API_BASE_URL}/${endpoint}`).then(res => res.data)
 
 const getDatas = (endpoint) => axios.get(`${API_BASE_URL}/${endpoint}`).then(res => res.data);
 
-export { getTeamData, getTeamDepthData, getDatas, getPlayers }
+export { getTeamData, getTeamDepthData, getDatas, getPlayers, getPlayerDepthData }

@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react'
 
 import * as React from 'react';
 import { Link as RouterLink, useMatch } from 'react-router-dom'
-// import { Logo } from './logo';
+import { Logo } from 'components/logo';
 import * as colors from '../styles/colors';
 import { useAuth } from 'context/auth-context';
 
@@ -85,7 +85,7 @@ function ResponsiveAppBar({ roll, userData }) {
                         textDecoration: 'none',
                      }}
                   >
-                     {/* <Logo /> */}
+                     <Logo />
                   </Typography>
 
                   {/* Show box in extra small device */}
@@ -135,7 +135,7 @@ function ResponsiveAppBar({ roll, userData }) {
                         textDecoration: 'none',
                      }}
                   >
-                     {/* <Logo /> */}
+                     <Logo />
                   </Typography>
                   {/* Show box in medium device */}
                   <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', paddingRight: '20px' }}>
