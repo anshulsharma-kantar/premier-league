@@ -23,7 +23,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 const RouteArray = [
-   { 'name': 'Teams', 'link': '/' },
+   { 'name': 'Teams', 'link': '/teams' },
    { 'name': 'Players', 'link': '/players' }
 ]
 

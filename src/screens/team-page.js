@@ -30,13 +30,13 @@ function Teampage() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [showDetails, setShowDetails] = React.useState(false);
     const [selectedRow, setSelectedRow] = React.useState({})
-    const [rows, setRows] = React.useState([])
+    const [rows, setRows] = React.useState()
     const { data, error, isLoading } = useSWR('teams', getTeamData)
-    if (data) {
-        data.sort((a, b) => { return a.position - b.position })
-    }
 
     React.useEffect(() => {
+        if (data) {
+            data.sort((a, b) => { return a.position - b.position })
+        }
         setRows(data)
     }, [data])
 
@@ -65,7 +65,6 @@ function Teampage() {
 
     const handelClose = () => {
         setShowDetails(false)
-        console.log('in handle modal close ', showDetails);
     }
 
     return (
@@ -87,36 +86,43 @@ function Teampage() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => {
-                                    return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} onClick={() => handleClick(row)} key={row.id}>
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                return (
-                                                    <TableCell key={column.id} align={column.align}>
-                                                        {column.format && typeof value === 'number'
-                                                            ? column.format(value)
-                                                            : value}
-                                                    </TableCell>
-                                                );
-                                            })}
-                                        </TableRow>
-                                    );
-                                })}
+                            {(rows && rows.length > 0) ? (
+                                rows
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row) => {
+                                        return (
+                                            <TableRow hover tabIndex={-1} onClick={() => handleClick(row)} key={row.id}>
+                                                {columns.map((column) => {
+                                                    const value = row[column.id];
+                                                    return (
+                                                        <TableCell key={column.id} align={column.align}>
+                                                            {column.format && typeof value === 'number'
+                                                                ? column.format(value)
+                                                                : value}
+                                                        </TableCell>
+                                                    );
+                                                })}
+                                            </TableRow>
+                                        );
+                                    })
+                            ) : (<div>Loading...</div>)
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 20]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                {
+                    (rows && rows.length > 0) ? (
+                        <TablePagination
+                            rowsPerPageOptions={[10, 20]}
+                            component="div"
+                            count={rows.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    ) : (<div>Loading...</div>)
+                }
             </Paper>
             <TeamDetails isOpen={showDetails} handleModalClose={handelClose} teamData={selectedRow}></TeamDetails>
         </>

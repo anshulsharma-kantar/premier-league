@@ -10,7 +10,6 @@ function handleUserResponse({ user }) {
 }
 
 function login({ data }) {
-   console.log("dat",data);
    return client('login',data).then(handleUserResponse)
 }
 

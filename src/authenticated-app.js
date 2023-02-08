@@ -16,7 +16,7 @@ import Container from '@mui/material/Container';
 
 
 const RouteArray = [
-    { 'name': 'Teams', 'link': '/', 'component': <Teampage /> },
+    { 'name': 'Teams', 'link': '/teams', 'component': <Teampage /> },
     { 'name': 'Players', 'link': '/players', 'component': <Playerspage /> }
 ]
 
